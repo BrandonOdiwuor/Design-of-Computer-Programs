@@ -11,7 +11,7 @@ class TestPokerMethods(unittest.TestCase):
   TK = '7D 7C 7H 5H 3D'.split()  # Three of a kind
   TP = '7D 7H 3C 3H 4D'.split()  # Two Pair
   OP = '2D 2H 5C 8D AH'.split()  # One Pair
-  HC = '4D 3C 5D 9H TC'.split()  # High Card
+  HC = '2S KC 5D 9H TC'.split()  # High Card
   
   def test_card_ranks(self):
     self.assertEqual(card_ranks(['6C', '9H', 'TD', '7S', '8C']), [10, 9, 8, 7, 6])    
@@ -63,7 +63,37 @@ class TestPokerMethods(unittest.TestCase):
   def test_hand_rank(self):
     t = TestPokerMethods
 
-    self.assertEqual()
+    #Straight Flush
+    self.assertEqual(hand_rank(t.SF), (8, 10))
+
+    # Four of a kind
+    self.assertEqual(hand_rank(t.FK), (7, 9, 7))
+
+    # Full House
+    self.assertEqual(hand_rank(t.FH), (6, 10, 7))
+
+    # Flush
+    self.assertEqual(hand_rank(t.F), (5, [10, 8, 7, 6, 4]))
+
+    # Straight
+    self.assertEqual(hand_rank(t.S), (4, 7))
+
+    # Straight with Ace as lowest card
+    self.assertEqual(hand_rank(t.SA), (4, 5))
+
+    # Three of a kind
+    self.assertEqual(hand_rank(t.TK), (3, 7, [7, 7, 7, 5, 3]))
+
+    # Two Pair
+    self.assertEqual(hand_rank(t.TP), (2, (7, 3), [7, 7, 4, 3, 3]))
+
+    # One Pair
+    self.assertEqual(hand_rank(t.OP), (1, 2, [14, 8, 5, 2, 2]))
+
+    # High Card
+    self.assertEqual(hand_rank(t.HC), (0, [13, 10, 9, 5, 2]))
+
+
 
 
 
